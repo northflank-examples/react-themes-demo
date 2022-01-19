@@ -1,9 +1,15 @@
 import styled from 'styled-components'
 
 const Button = styled.button(
-  ({ theme, secondary }) => `
+  ({ theme, secondary, error }) => `
   appearance: none;
-  background-color: ${!secondary ? theme.colors.primary : theme.colors.nav};
+  background-color: ${
+    error
+      ? theme.colors.error
+      : secondary
+      ? theme.colors.nav
+      : theme.colors.primary
+  };
   color: ${!secondary ? '#fff' : theme.colors.text};
   border: 0;
   border-radius: ${theme.radii[0]};

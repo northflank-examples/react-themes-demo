@@ -6,6 +6,7 @@ import { base, light, dark, solarized } from './themes'
 import Nav from './components/Nav'
 import Select from './components/Select'
 import Button from './components/Button'
+import ExampleUi from './components/ExampleUi'
 
 const themesMap = {
   light,
@@ -174,6 +175,7 @@ const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
                     gridGap: '8px',
+                    marginBottom: '32px',
                   }}
                 >
                   <Button
@@ -196,6 +198,7 @@ const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
                 </div>
               </>
             )}
+            <ExampleUi />
           </Main>
         </ThemePreferenceContext.Provider>
       </ThemeProvider>
