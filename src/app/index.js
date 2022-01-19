@@ -6,8 +6,8 @@ import App from './App'
 
 const AppWithThemeCookie = () => {
   const [cookies] = useCookies()
-  const { themePreference } = cookies
-  return <App initialTheme={themePreference} />
+  const { themePreference, customTheme } = cookies
+  return <App initialTheme={themePreference} initialCustomTheme={customTheme} />
 }
 
 ReactDOM.hydrate(

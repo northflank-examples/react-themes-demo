@@ -12,7 +12,7 @@ app.use(cookieParser())
 app.use(express.static('dist'))
 
 app.get('*', (req, res) => {
-  const { themePreference } = req.cookies
+  const { themePreference, customTheme } = req.cookies
   let app = ''
   let styles = ''
   const sheet = new ServerStyleSheet()
@@ -20,7 +20,10 @@ app.get('*', (req, res) => {
     app = ReactDOMServer.renderToString(
       sheet.collectStyles(
         <StaticRouter location={req.url}>
-          <App initialTheme={themePreference} />
+          <App
+            initialTheme={themePreference}
+            initialCustomTheme={customTheme}
+          />
         </StaticRouter>
       )
     )

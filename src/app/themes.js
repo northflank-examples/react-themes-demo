@@ -38,10 +38,10 @@ export const light = {
   primary: '#4851f4',
   background: '#ffffff',
   nav: '#f8f8f8',
-  text: '#202224',
-  grey: '#aaa',
-  error: '#f33',
   border: '#deebf1',
+  text: '#202224',
+  grey: '#aaaaaa',
+  error: '#ff3333',
 }
 
 // Dark theme colours
@@ -49,10 +49,10 @@ export const dark = {
   primary: '#4851f4',
   background: '#1f2023',
   nav: '#27282b',
-  text: '#f8f8f8',
-  grey: '#aaa',
-  error: '#f33',
   border: '#303236',
+  text: '#f8f8f8',
+  grey: '#aaaaaa',
+  error: '#ff3333',
 }
 
 // Solarized theme colours
@@ -60,8 +60,8 @@ export const solarized = {
   primary: '#4851f4',
   background: '#fdf6e3',
   nav: '#eee8d5',
+  border: '#eee8d5',
   text: '#002b36',
   grey: '#586e75',
-  error: '#f33',
-  border: '#eee8d5',
+  error: '#ff3333',
 }

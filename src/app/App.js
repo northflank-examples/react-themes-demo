@@ -45,11 +45,13 @@ const Main = styled.main(
 // This React context will expose the users theme preference to the entire application
 export const ThemePreferenceContext = React.createContext()
 
-const App = ({ initialTheme = 'light' }) => {
+const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
   // Store the users theme preference in state
   const [currentTheme, setCurrentTheme] = useState(initialTheme)
+  const [customTheme, setCustomTheme] = useState(initialCustomTheme)
 
-  const [, setCookie] = useCookies()
+  const [cookies, setCookie] = useCookies()
+  const { themePreference } = cookies
 
   // Function to update the current theme in state, and also save to a cookie
   const setCurrentThemeAndSavePref = (theme) => {
@@ -60,19 +62,39 @@ const App = ({ initialTheme = 'light' }) => {
     })
   }
 
+  // Function to update the current custom theme values in state, and also save to a cookie
+  const saveCustomTheme = (theme) => {
+    setCustomTheme(theme)
+    setCookie('customTheme', JSON.stringify(theme), {
+      path: '/',
+      expires: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+    })
+  }
+
   // Use the prefers-color-scheme media query to detect OS theme preference
   useEffect(() => {
     const themeQuery = window.matchMedia('(prefers-color-scheme: light)')
+    // If the user has not set a preference yet, set to their OS theme
+    if (!themePreference)
+      setCurrentThemeAndSavePref(themeQuery.matches ? 'light' : 'dark')
     // If the user is using a theme other than light/dark, don't change it based on their OS
     if (initialTheme === 'light' || initialTheme === 'dark') {
-      setCurrentThemeAndSavePref(themeQuery.matches ? 'light' : 'dark')
       themeQuery.addEventListener('change', ({ matches }) => {
         setCurrentThemeAndSavePref(matches ? 'light' : 'dark')
       })
     }
   }, [])
 
-  const theme = { ...base, colors: themesMap[currentTheme] }
+  // Build our full theme object from the base properties + our current theme colours
+  const theme = {
+    ...base,
+    colors:
+      currentTheme === 'custom'
+        ? Object.keys(customTheme).length
+          ? customTheme
+          : themesMap.light
+        : themesMap[currentTheme],
+  }
 
   return (
     <>
@@ -87,34 +109,93 @@ const App = ({ initialTheme = 'light' }) => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <ThemePreferenceContext.Provider
-          value={{ currentTheme, setCurrentTheme: setCurrentThemeAndSavePref }}
+          value={{
+            currentTheme,
+            setCurrentTheme: setCurrentThemeAndSavePref,
+            customTheme,
+            setCustomTheme: saveCustomTheme,
+          }}
         >
           <Nav />
           <Main>
             <h1 style={{ marginBottom: '32px' }}>
               React + styled-components themes demo
             </h1>
+
             <label style={{ display: 'block', marginBottom: '32px' }}>
               <p style={{ marginBottom: '8px' }}>Theme</p>
               <Select
                 value={currentTheme}
-                onChange={(e) => setCurrentThemeAndSavePref(e.target.value)}
+                onChange={(e) => {
+                  if (
+                    e.target.value === 'custom' &&
+                    !Object.keys(customTheme).length
+                  )
+                    setCustomTheme(themesMap['light'])
+                  setCurrentThemeAndSavePref(e.target.value)
+                }}
               >
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
                 <option value="solarized">Solarized</option>
+                <option value="custom">Custom</option>
               </Select>
             </label>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gridGap: '8px',
-              }}
-            >
-              <Button>Primary button</Button>
-              <Button secondary>Secondary button</Button>
-            </div>
+            {currentTheme === 'custom' && (
+              <>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gridGap: '8px',
+                    marginBottom: '32px',
+                  }}
+                >
+                  {Object.entries(customTheme).map(([key, val]) => (
+                    <label key={`custom-${key}`}>
+                      <p style={{ marginBottom: '4px' }}>{key}</p>
+                      <input
+                        type="color"
+                        value={val}
+                        onChange={(e) => {
+                          setCustomTheme((t) => {
+                            const current = { ...t }
+                            current[key] = e.target.value
+                            return current
+                          })
+                        }}
+                        style={{ display: 'block', width: '100%' }}
+                      />
+                    </label>
+                  ))}
+                </div>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridGap: '8px',
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      saveCustomTheme(customTheme)
+                      alert('Custom theme was saved')
+                    }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    secondary
+                    onClick={() => {
+                      saveCustomTheme(themesMap.light)
+                      alert('Custom theme was reset to default')
+                    }}
+                  >
+                    Reset
+                  </Button>
+                </div>
+              </>
+            )}
           </Main>
         </ThemePreferenceContext.Provider>
       </ThemeProvider>
