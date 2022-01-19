@@ -6,6 +6,14 @@
 
 This is a demo React + styled-components application demonstrating how you can give users a choice of theme inside your own app.
 
+### Running
+
+1. Clone or download this repository
+2. `cd react-themes-demo`
+3. `yarn install`
+4. `yarn start`
+5. Visit http://localhost:9000 in your browser
+
 ### Author
 
 Tom Snelling
