@@ -22,7 +22,7 @@ app.get('*', (req, res) => {
         <StaticRouter location={req.url}>
           <App
             initialTheme={themePreference}
-            initialCustomTheme={customTheme}
+            initialCustomTheme={JSON.parse(customTheme)}
           />
         </StaticRouter>
       )
