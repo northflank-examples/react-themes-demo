@@ -4,11 +4,10 @@ import { Helmet } from 'react-helmet'
 import { useCookies } from 'react-cookie'
 import { base, light, dark, solarized } from './themes'
 import Nav from './components/Nav'
-import Select from './components/Select'
-import Button from './components/Button'
+import ThemeSettings from './components/ThemeSettings'
 import ExampleUi from './components/ExampleUi'
 
-const themesMap = {
+export const themesMap = {
   light,
   dark,
   solarized,
@@ -64,7 +63,7 @@ const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
   }
 
   // Function to update the current custom theme values in state, and also save to a cookie
-  const saveCustomTheme = (theme) => {
+  const setCustomThemeAndSavePref = (theme) => {
     setCustomTheme(theme)
     setCookie('customTheme', JSON.stringify(theme), {
       path: '/',
@@ -112,9 +111,11 @@ const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
         <ThemePreferenceContext.Provider
           value={{
             currentTheme,
-            setCurrentTheme: setCurrentThemeAndSavePref,
+            setCurrentTheme,
+            setCurrentThemeAndSavePref,
             customTheme,
-            setCustomTheme: saveCustomTheme,
+            setCustomTheme,
+            setCustomThemeAndSavePref,
           }}
         >
           <Nav />
@@ -122,82 +123,7 @@ const App = ({ initialTheme = 'light', initialCustomTheme = {} }) => {
             <h1 style={{ marginBottom: '32px' }}>
               React + styled-components themes demo
             </h1>
-
-            <label style={{ display: 'block', marginBottom: '32px' }}>
-              <p style={{ marginBottom: '8px' }}>Theme</p>
-              <Select
-                value={currentTheme}
-                onChange={(e) => {
-                  if (
-                    e.target.value === 'custom' &&
-                    !Object.keys(customTheme).length
-                  )
-                    setCustomTheme(themesMap['light'])
-                  setCurrentThemeAndSavePref(e.target.value)
-                }}
-              >
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="solarized">Solarized</option>
-                <option value="custom">Custom</option>
-              </Select>
-            </label>
-            {currentTheme === 'custom' && (
-              <>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gridGap: '8px',
-                    marginBottom: '32px',
-                  }}
-                >
-                  {Object.entries(customTheme).map(([key, val]) => (
-                    <label key={`custom-${key}`}>
-                      <p style={{ marginBottom: '4px' }}>{key}</p>
-                      <input
-                        type="color"
-                        value={val}
-                        onChange={(e) => {
-                          setCustomTheme((t) => {
-                            const current = { ...t }
-                            current[key] = e.target.value
-                            return current
-                          })
-                        }}
-                        style={{ display: 'block', width: '100%' }}
-                      />
-                    </label>
-                  ))}
-                </div>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gridGap: '8px',
-                    marginBottom: '32px',
-                  }}
-                >
-                  <Button
-                    onClick={() => {
-                      saveCustomTheme(customTheme)
-                      alert('Custom theme was saved')
-                    }}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    secondary
-                    onClick={() => {
-                      saveCustomTheme(themesMap.light)
-                      alert('Custom theme was reset to default')
-                    }}
-                  >
-                    Reset
-                  </Button>
-                </div>
-              </>
-            )}
+            <ThemeSettings />
             <ExampleUi />
           </Main>
         </ThemePreferenceContext.Provider>
