@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { Helmet } from 'react-helmet'
 import { useCookies } from 'react-cookie'
-import { base, light, dark } from './themes'
+import { base, light, dark, solarized } from './themes'
 import Nav from './components/Nav'
 import Select from './components/Select'
 import Button from './components/Button'
@@ -10,6 +10,7 @@ import Button from './components/Button'
 const themesMap = {
   light,
   dark,
+  solarized,
 }
 
 // Creates a CSS reset and applies some basic styles to the document body
@@ -59,6 +60,18 @@ const App = ({ initialTheme = 'light' }) => {
     })
   }
 
+  // Use the prefers-color-scheme media query to detect OS theme preference
+  useEffect(() => {
+    const themeQuery = window.matchMedia('(prefers-color-scheme: light)')
+    // If the user is using a theme other than light/dark, don't change it based on their OS
+    if (initialTheme === 'light' || initialTheme === 'dark') {
+      setCurrentThemeAndSavePref(themeQuery.matches ? 'light' : 'dark')
+      themeQuery.addEventListener('change', ({ matches }) => {
+        setCurrentThemeAndSavePref(matches ? 'light' : 'dark')
+      })
+    }
+  }, [])
+
   const theme = { ...base, colors: themesMap[currentTheme] }
 
   return (
@@ -89,6 +102,7 @@ const App = ({ initialTheme = 'light' }) => {
               >
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
+                <option value="solarized">Solarized</option>
               </Select>
             </label>
             <div

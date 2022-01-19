@@ -54,3 +54,14 @@ export const dark = {
   error: '#f33',
   border: '#303236',
 }
+
+// Solarized theme colours
+export const solarized = {
+  primary: '#4851f4',
+  background: '#fdf6e3',
+  nav: '#eee8d5',
+  text: '#002b36',
+  grey: '#586e75',
+  error: '#f33',
+  border: '#eee8d5',
+}
