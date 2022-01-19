@@ -81,8 +81,8 @@ const ExampleUi = () => {
         <a href="https://example.com">This is a link to https://example.com</a>
       </p>
       <Colours>
-        {Object.values(colors).map((colour) => (
-          <div key={`colour-${colour}`} style={{ backgroundColor: colour }} />
+        {Object.entries(colors).map(([key, colour]) => (
+          <div key={`colour-${key}`} style={{ backgroundColor: colour }} />
         ))}
       </Colours>
       <Quote>
