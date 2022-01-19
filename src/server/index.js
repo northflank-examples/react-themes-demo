@@ -1,4 +1,5 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
@@ -7,9 +8,11 @@ import App from '../app/App'
 
 const app = express()
 
+app.use(cookieParser())
 app.use(express.static('dist'))
 
 app.get('*', (req, res) => {
+  const { themePreference } = req.cookies
   let app = ''
   let styles = ''
   const sheet = new ServerStyleSheet()
@@ -17,7 +20,7 @@ app.get('*', (req, res) => {
     app = ReactDOMServer.renderToString(
       sheet.collectStyles(
         <StaticRouter location={req.url}>
-          <App />
+          <App initialTheme={themePreference} />
         </StaticRouter>
       )
     )

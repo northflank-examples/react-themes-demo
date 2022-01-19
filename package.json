@@ -12,7 +12,7 @@
     "build:app": "esbuild src/app/index.js --outfile=dist/app.js --bundle --format=cjs --loader:.js=jsx",
     "build": "npm-run-all build:*",
     "watch:server": "nodemon --watch src/server -e js -x \"yarn build:server\"",
-    "watch:app": "nodemon --watch src/app -e js -x \"yarn build:app\"",
+    "watch:app": "nodemon --watch src/app -e js -x \"yarn build\"",
     "dev": "nodemon --watch dist dist/server.js",
     "start": "npm-run-all --parallel watch:* dev"
   },
@@ -28,9 +28,12 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.2",
     "react": "^17.0.2",
+    "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^6.2.1",
     "styled-components": "^5.3.3"
   }
