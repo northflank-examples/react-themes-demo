@@ -1,6 +1,6 @@
 # react-themes-demo
 
-[Read the blog post](https://northflank.com/blog/implementing-custom-themes-in-a-react-app-using-styled-components)
+[Read the blog post](https://northflank.com/blog/adding-themes-to-a-react-app-using-styled-components)
 
 [See the app deployed on Northflank](https://site--react-themes-demo--internal-apps--nort-xjjq.code.run)
 
