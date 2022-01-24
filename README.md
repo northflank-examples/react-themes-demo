@@ -6,6 +6,8 @@
 
 This is a demo React + styled-components application demonstrating how you can give users a choice of theme inside your own app.
 
+![Screenshot of the demo app](https://assets.northflank.com/Screenshot_2022_01_20_at_10_45_41_fb7a2e1fa9.png)
+
 ### Running
 
 1. Clone or download this repository
