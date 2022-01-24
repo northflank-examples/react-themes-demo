@@ -25,7 +25,8 @@ const ThemeSettings = () => {
         >
           <option value="light">Light</option>
           <option value="dark">Dark</option>
-          <option value="solarized">Solarized</option>
+          <option value="solarizedLight">Solarized light</option>
+          <option value="solarizedDark">Solarized dark</option>
           <option value="custom">Custom</option>
         </Select>
       </label>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { Helmet } from 'react-helmet'
 import { useCookies } from 'react-cookie'
-import { base, light, dark, solarized } from './themes'
+import { base, light, dark, solarizedLight, solarizedDark } from './themes'
 import Nav from './components/Nav'
 import ThemeSettings from './components/ThemeSettings'
 import ExampleUi from './components/ExampleUi'
@@ -10,7 +10,8 @@ import ExampleUi from './components/ExampleUi'
 export const themesMap = {
   light,
   dark,
-  solarized,
+  solarizedLight,
+  solarizedDark,
 }
 
 // Creates a CSS reset and applies some basic styles to the document body
