@@ -1,10 +1,12 @@
 # react-themes-demo
 
-[Read the blog post](https://northflank.com/blog/implementing-custom-themes-in-a-react-app-using-styled-components)
+[Read the blog post](https://northflank.com/blog/adding-themes-to-a-react-app-using-styled-components)
 
 [See the app deployed on Northflank](https://site--react-themes-demo--internal-apps--nort-xjjq.code.run)
 
 This is a demo React + styled-components application demonstrating how you can give users a choice of theme inside your own app.
+
+![Screenshot of the demo app](https://assets.northflank.com/Screenshot_2022_01_20_at_10_45_41_fb7a2e1fa9.png)
 
 ### Running
 
