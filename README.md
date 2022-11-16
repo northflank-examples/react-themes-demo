@@ -10,6 +10,8 @@ This is a demo React + styled-components application demonstrating how you can g
 
 ### Running
 
+You can follow [this link](https://app.northflank.com/s/project/create/template-service) to create a repository and service from this template on Northflank. Otherwise:
+
 1. Clone or download this repository
 2. `cd react-themes-demo`
 3. `yarn install`
