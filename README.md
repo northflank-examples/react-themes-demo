@@ -1,10 +1,22 @@
-# react-themes-demo
+# Northflank React Themes template
+
+<a target="_blank" rel="noopener noreferrer" href="https://www.northflank.com">
+    <img alt="Northflank" align="right" src="/media/logo.svg" width="35%" />
+</a>
+
+This is a demo React + styled-components application demonstrating how you can give users a choice of theme inside your own app.
 
 [Read the blog post](https://northflank.com/blog/adding-themes-to-a-react-app-using-styled-components)
 
-[See the app deployed on Northflank](https://site--react-themes-demo--internal-apps--nort-xjjq.code.run)
+Deploy React Themes easily with [Northflank](https://www.northflank.com):
 
-This is a demo React + styled-components application demonstrating how you can give users a choice of theme inside your own app.
+- [Create a service from template on Northflank](https://app.northflank.com/s/project/create/template-service)
+- Select the React Themes template
+- Wait for the app to build and visit the newly assigned URL. That's it!
+
+You can now clone your repository locally and start making changes. Push your changes to automatically build and deploy the updated application!
+
+[Learn more about using Northflank](https://northflank.com/docs/).
 
 ![Screenshot of the demo app](https://assets.northflank.com/Screenshot_2022_01_20_at_10_45_41_fb7a2e1fa9.png)
 
